@@ -1,23 +1,25 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Time Display</title>
+    <title>Random Word Generator</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
     <div id='wrapper'>
         <div id='top-container'>
-            <h3>The current time and date</h3>
+            <h3>Random Word Generator</h3>
+            <h4>Attempt Number : {{count}}</h4>
         </div>
         <div id='bottom-container'>
-            <h2>{{date | date:"D d M, Y"}}</h2>
-            <h2>{{time}}</h2>
+            <h2>{{word}}</h2>
         </div>
-
+        <form action='' method="POST">
+            {% csrf_token %}
+            <button>GENERATE WORD</button>
+        </form>
     </div>
 </body>
 </html>
