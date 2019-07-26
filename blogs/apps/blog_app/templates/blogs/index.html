@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blogs/css/main.css' %}">
+<body>
+    <div id='container'>
+        <h1>Hello World!</h1>
+        {{email}}
+        {{name}}
+        <form action='/blogs/create' method='POST'>
+            {%csrf_token%}
+            <label for='title'>Title</label>
+            <input type="text" name='title' placeholder="Enter blog name">
+            <label for='description'>Description</label>
+            <textarea rows='4' cols='50' name='description'></textarea>
+            <button typ='submit'>SUBMIT</button>
+        </form>
+        
+        <h1>Hello {{request.session.name}}</h1>
+    </div>
+    
+</body>
+</html>
