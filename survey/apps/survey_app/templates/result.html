@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div id='wrapper'>
+        <div id='top_box2'>
+            <h3>Survey Form</h3>
+            <p>Thanks for submitting this form, you have submitted this form {{count}} times</p>
+        </div>
+        <form action='/goback' method='POST'>
+            {%csrf_token%}
+            <h3>Submitted Information</h3>
+            <p>Name: {{name}}</p>
+            <p>Locations: {{location}}</p>
+            <p>Language: {{language}}</p>
+            <p>Comments: {{comment}}</p>
+            <button>GO BACK</button>
+        </form>
+    </div>
+</body>
+</html>

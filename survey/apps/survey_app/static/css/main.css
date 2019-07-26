@@ -1,0 +1,45 @@
+#wrapper{
+    border: 10px solid rebeccapurple;
+    width: 520px;
+    height: 500px;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+    margin: auto;
+    font-family:Arial, Helvetica, sans-serif; 
+    line-height: 200%;
+    font-size: 22px;
+}
+
+#top_box{
+    border: 2px solid brown;
+    margin:auto;
+    text-align: center;
+    font-weight: bolder; 
+}
+
+#top_box2{
+    border: 2px solid brown;
+    margin:auto;
+    text-align: center;
+}
+
+#top_box2 h3{
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#top_box2 p{
+    font-size: 16px;
+}
+
+button{
+    font-size: 20px;
+    width: 150px;
+    background-color: darkgreen;
+    color: aliceblue;
+    align-content: center
+
+}
