@@ -1,0 +1,22 @@
+#wrapper{
+    border: 10px solid rebeccapurple;
+    width: 60em;
+    align-items: center;
+    justify-content: center;
+    padding: 5em;
+    margin: auto;
+    font-family:Arial, Helvetica, sans-serif; 
+}
+#top-container{
+    border: 3px solid black;
+    margin: auto;
+    width: 250px;
+    padding: 1em;
+    text-align: center;
+}
+
+#bottom-container{
+    border: 3px solid blue;
+    margin-top: 2em;
+    text-align: center;
+}
