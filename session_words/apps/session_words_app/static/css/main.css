@@ -1,0 +1,42 @@
+#wrapper{
+    border: 3px solid black;
+    padding: 5%;
+}
+
+#box_1{
+    border: 3px solid red;
+    margin: 2%;
+    width: 45%;
+    height:300px;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+}
+
+#box_2{
+    border: 3px solid blue;
+    margin: 2%;
+    width: 45%;
+    height:300px;
+    display: inline-block;
+}
+
+#word_input{
+    width: 150px;
+    height: 2%;
+    font-size: 20px;
+    border: 2px solid black;
+}
+
+.radiobutton{
+    vertical-align: middle; 
+    margin: 0px;
+}
+
+
+
+
+  
+  
