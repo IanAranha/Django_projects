@@ -7,7 +7,7 @@
     border: 3px solid red;
     margin: 2%;
     width: 45%;
-    height:300px;
+    height:365px;
     float: left;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
@@ -18,9 +18,11 @@
 #box_2{
     border: 3px solid blue;
     margin: 2%;
-    width: 45%;
-    height:300px;
+    width: 40%;
+    height:355px;
     display: inline-block;
+    padding: 10px;
+    overflow-y: scroll
 }
 
 #word_input{
@@ -30,13 +32,54 @@
     border: 2px solid black;
 }
 
-.radiobutton{
+#radiobutton{
     vertical-align: middle; 
     margin: 0px;
 }
 
+#redbig{
+    color: red;
+    font-size: 22px;
+}
 
+#redsmall{
+    color: red;
+    font-size: 16px;
+}
 
+#bluebig{
+    color: blue;
+    font-size: 22px;
+}
 
-  
+#bluesmall{
+    color: blue;
+    font-size: 16px;
+}
+
+#greenbig{
+    color: green;
+    font-size: 22px;
+}
+
+#greensmall{
+    color: green;
+    font-size: 16px;
+}
+
+#button{
+    background-color: brown;
+    color: aliceblue;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+h3{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#tiny{
+    font-size: 13px;
+}
   

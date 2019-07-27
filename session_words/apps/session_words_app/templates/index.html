@@ -9,25 +9,27 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-    <div id=wrapper>
-        <div id=box_1>
+    <div id='wrapper'>
+        <div id='box_1'>
             <form action='addWordToSession' method='POST'>
                 {%csrf_token%}
                 <h3>Add a new word</h3>
                 <input id='word_input' name='word' type='text'>
-                <div class="form-wrapper">
+                <div id="radiobutton">
                     <p>Choose a color:</p>
                     <input type="radio" name='color' value='red' checked> Red <br>
                     <input type="radio" name="color" value='blue'>Blue<br>
-                    <input type="radio" name="color" value='Green'>Green
-                </div>
-                <label><input type="checkbox" name='font' value='1'> Big Font?</label><br>
-                <input type='submit' value='Add To Session'>
+                    <input type="radio" name="color" value='green'>Green
+                </div><br>
+                <label><input type="checkbox" name='font'> Big Font?</label>
+                <br>
+                <br>
+                <input id='button' type='submit' value='Add To Session'>
             </form>
         </div>
-        <div id=box_2>
+        <div id='box_2'>
             {% for word in data%}
-            <p><span class='{{word.color}} {{word.font}}'>{{word.word}}</span><span class='tiny'> - added on {{word.time}}</span></p>
+                <p><span id={{word.color}}{{word.font}}>{{word.word}}</span><span id='tiny'> - added on {{word.time}}</span></p>
             {%endfor%}
         </div>
     </div>

@@ -13,14 +13,14 @@ def addWordToSession(request):
             data = {
                 'word': request.POST['word'],
                 'color': request.POST['color'],
-                'font': '22px',
+                'font': 'big',
                 'time': wordtime
             }
         else:
             data = {
                 'word': request.POST['word'],
 			    'color': request.POST['color'],
-			    'font': '16px',
+			    'font': 'small',
 			    'time': wordtime
             }
         temp_list.append(data)
