@@ -32,3 +32,7 @@ def show(request):
         'data' : request.session['word']
     }
     return render(request,'index.html', context)
+
+def clearSession(request):
+    if request.method ==  'POST':
+        return redirect('/')

@@ -24,10 +24,14 @@
                 <label><input type="checkbox" name='font'> Big Font?</label>
                 <br>
                 <br>
-                <input id='button' type='submit' value='Add To Session'>
+                <input class='button' type='submit' value='Add To Session'>
             </form>
         </div>
         <div id='box_2'>
+            <form action='/clearSession' method='POST'>
+                {%csrf_token%}
+                <input class='button' type='submit' value='Clear Session'>
+            </form>
             {% for word in data%}
                 <p><span id={{word.color}}{{word.font}}>{{word.word}}</span><span id='tiny'> - added on {{word.time}}</span></p>
             {%endfor%}
