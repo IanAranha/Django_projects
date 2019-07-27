@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Gold</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div id=wrapper>
+        <h1>NINJA GOLD!</h1>
+        <label for=goldbox>Your Gold:</label>
+        <input id=goldbox name=goldbox><br>
+        <div class='box'>
+            <h4>Farm</h4>
+            <p>(Earns 10 - 20 Gold)</p>
+            <form>
+                <form action="/process_money" method='post'>
+                    {%csrf_token%}
+                    <input type="hidden" name="building" value="farm">
+                    <button class='button' type='submit'>Find Gold</button>
+                </form>
+            </form>
+        </div>
+        <div class='box'>
+            <h4>Cave</h4>
+            <p>(Earn 5 - 10 Gold)</p>
+            <form>
+                <form action="/process_money" method='post'>
+                    {%csrf_token%}
+                    <input type="hidden" name="building" value="cave">
+                    <button class= button type='submit'>Find Gold</button>
+                </form>
+            </form>
+        </div>
+        <div class='box'>
+            <h4>House</h4>
+            <p>(Earns 2 - 5 Gold)</p>
+            <form>
+                <form action="/process_money" method='post'>
+                    {%csrf_token%}
+                    <input type="hidden" name="building" value="house">
+                    <button class= button type='submit'>Find Gold</button>
+                </form>
+            </form>
+        </div>
+        <div class='box'>
+            <h4>Casino</h4>
+            <p>(Earns/Takes 0 - 50 Gold)</p>
+            <form>
+                <form action="/process_money" method='post'>
+                    {%csrf_token%}
+                    <input type="hidden" name="building" value="casino">
+                    <button class= button type='submit'>Find Gold</button>
+                </form>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
