@@ -1,0 +1,141 @@
+Start a new app (the name of the app should be 'dojo_ninjas')
+Create appropriate tables/models that allows you to perform tasks such as
+Dojo.objects.first().ninjas.all()
+Ninja.objects.first().dojo
+
+C(djangoPy3env) Ians-MacBook-Pro:modeling_app ianaranha$ python manage.py makemigrations
+Migrations for 'dojo_ninja_app':
+  apps/dojo_ninja_app/migrations/0001_initial.py:
+    - Create model Dojo
+    - Create model Ninjas
+(djangoPy3env) Ians-MacBook-Pro:modeling_app ianaranha$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, dojo_ninja_app, sessions
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying dojo_ninja_app.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+*********************************************************************************
+
+Create 3 dojos
+
+In [2]: from apps.dojo_ninja_app.models import *                                                                                                     
+
+
+In [4]: Dojo.objects.create(name='CodingDojo Silicon Valley', city='Mountain View', state='CA')                                                      
+Out[4]: <Dojo: Dojo object>
+
+In [5]: Dojo.objects.create(name='CodingDojo Seattle', city='Seattle', state='WA')                                                                   
+Out[5]: <Dojo: Dojo object>
+
+In [6]: Dojo.objects.create(name='CodingDojo New York', city='New York City', state='NY')                                                            
+Out[6]: <Dojo: Dojo object>
+
+***********************************************************************************
+
+
+Delete the three dojos you created (e.g. Dojo.objects.get(id=1).delete())
+
+In [7]: Dojo.objects.all().delete()                                                                                                                  
+Out[7]: (3, {'dojo_ninja_app.Ninjas': 0, 'dojo_ninja_app.Dojo': 3})
+
+
+*********************************************************************************
+
+
+Create 3 additional dojos by using Dojo.objects.create
+
+In [9]: Dojo.objects.create(name='CodingDojo San Francisco', city='San Francisco', state='CA')                                                       
+Out[9]: <Dojo: Dojo object>
+
+In [10]: Dojo.objects.create(name='CodingDojo Houston', city='Houston', state='TX')                                                                  
+Out[10]: <Dojo: Dojo object>
+
+In [11]: Dojo.objects.create(name='CodingDojo Oregon', city='Portland', state='OR')                                                                  
+Out[11]: <Dojo: Dojo object>
+
+*************************************************************************************
+
+
+Create 3 ninjas that belong to the first dojo you created.
+
+In [9]: Dojo.objects.create(name='CodingDojo San Francisco', city='San Francisco', state='CA')                                                       
+Out[9]: <Dojo: Dojo object>
+
+In [10]: Dojo.objects.create(name='CodingDojo Houston', city='Houston', state='TX')                                                                  
+Out[10]: <Dojo: Dojo object>
+
+In [11]: Dojo.objects.create(name='CodingDojo Oregon', city='Portland', state='OR')                                                                  
+Out[11]: <Dojo: Dojo object>
+
+*************************************************************************************
+
+Create 3 more ninjas and have them belong to the second dojo you created.
+
+
+In [16]: Ninjas.objects.create(first_name='Emily', last_name='Nesmith',dojo=Dojo.objects.get(id=5))                                                  
+Out[16]: <Ninjas: Ninjas object>
+
+In [17]: Ninjas.objects.create(first_name='Issac', last_name='Thomas',dojo=Dojo.objects.get(id=5))                                                   
+Out[17]: <Ninjas: Ninjas object>
+
+In [18]: Ninjas.objects.create(first_name='Grayson', last_name='Thomas',dojo=Dojo.objects.get(id=5))                                                 
+Out[18]: <Ninjas: Ninjas object>
+
+
+********************************************************************************
+
+Create 3 more ninjas and have them belong to the third dojo you created.
+
+In [19]: Ninjas.objects.create(first_name='Mila', last_name='Sano',dojo=Dojo.objects.get(id=6))                                                      
+Out[19]: <Ninjas: Ninjas object>
+
+In [20]: Ninjas.objects.create(first_name='Tina', last_name='Farias',dojo=Dojo.objects.get(id=6))                                                    
+Out[20]: <Ninjas: Ninjas object>
+
+In [21]: Ninjas.objects.create(first_name='Ashwin', last_name='Rego',dojo=Dojo.objects.get(id=6))                                                    
+Out[21]: <Ninjas: Ninjas object>
+
+*******************************************************************************
+Be able to retrieve all ninjas that belong to the first Dojo
+
+In [5]: ninjas=Ninjas.objects.filter(dojo=Dojo.objects.get(id=4))  
+In [7]: for ninja in ninjas: 
+   ...:     print(ninja.first_name, ninja.last_name) 
+   ...:      
+   ...:                                                                                                                                              
+Ian Aranha
+Rob Drake
+Jennifer Reynolds
+
+
+***************************************************************************
+
+Be able to retrieve all ninjas that belong to the last Dojo
+
+In [8]: ninjas=Ninjas.objects.filter(dojo=Dojo.objects.get(id=6))                                                                                    
+
+In [9]: for ninja in ninjas: 
+   ...:     print(ninja.first_name, ninja.last_name) 
+   ...:      
+   ...:                                                                                                                                              
+Mila Sano
+Tina Farias
+Ashwin Rego
+
+******************************************************************************
+
+
