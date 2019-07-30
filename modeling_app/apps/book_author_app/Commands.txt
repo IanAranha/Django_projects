@@ -4,19 +4,21 @@ Book.objects.first().authors
 Author.objects.first().books
 Successfully create and run the migration files
 
-^C(djangoPy3env) Ians-MacBook-Pro:dojo_ninjas_project ianaranha$ python manage.py makemigrations
+(djangoPy3env) Ians-MacBook-Pro:modeling_app ianaranha$ python manage.py makemigrations
 Migrations for 'book_author_app':
   apps/book_author_app/migrations/0001_initial.py:
     - Create model Author
     - Create model Book
     - Add field books to author
-(djangoPy3env) Ians-MacBook-Pro:dojo_ninjas_project ianaranha$ python manage.py migrate
+(djangoPy3env) Ians-MacBook-Pro:modeling_app ianaranha$ python manage.py migrate
 Operations to perform:
-  Apply all migrations: admin, auth, book_author_app, contenttypes, dojo_ninjas_app, sessions
+  Apply all migrations: admin, auth, book_author_app, contenttypes, dojo_ninja_app, sessions
 Running migrations:
   Rendering model states... DONE
   Applying book_author_app.0001_initial... OK
-(djangoPy3env) Ians-MacBook-Pro:dojo_ninjas_project ianaranha$ 
+(djangoPy3env) Ians-MacBook-Pro:modeling_app ianaranha$ 
+
+
 
 ************************************************************************************
 
@@ -83,29 +85,29 @@ Running migrations:
 ****************************************************************************************
 
 Change the name of the 5th book to C#
-In [3]: book=Book.objects.get(id=5)                                                                                                                   
 
-In [4]: book.name                                                                                                                                     
+In [3]: this_book = Book.objects.get(id=5)                                                                                                           
+
+In [4]: this_book.name                                                                                                                               
 Out[4]: 'Ruby'
 
-In [5]: book.name='C#'                                                                                                                                
+In [5]: this_book.name='C#'                                                                                                                          
 
-In [6]: book.name                                                                                                                                     
+In [6]: this_book.name                                                                                                                               
 Out[6]: 'C#'
-
 
 ****************************************************************************************
 
 Change the first_name of the 5th author to Ketul
 
-In [7]: author=Author.objects.get(id=5)                                                                                                               
+In [7]: this_author=Author.objects.get(id=5)                                                                                                         
 
-In [8]: author.first_name                                                                                                                             
+In [8]: this_author.first_name                                                                                                                       
 Out[8]: 'Jay'
 
-In [9]: author.first_name='Ketul'                                                                                                                     
+In [9]: this_author.first_name='Ketul'                                                                                                               
 
-In [10]: author.first_name                                                                                                                            
+In [10]: this_author.first_name                                                                                                                      
 Out[10]: 'Ketul'
 
 ***************************************************************************************
@@ -123,12 +125,96 @@ In [14]: this_author.books.add(Book.objects.get(id=2))
 *****************************************************************************************  
 Assign the second author to the first 3 books
 
+In [14]: Author.objects.get(id=2).books.add(Book.objects.get(id=1))                                                                                  
 
+In [15]: Author.objects.get(id=2).books.add(Book.objects.get(id=2))                                                                                  
+
+In [16]: Author.objects.get(id=2).books.add(Book.objects.get(id=3)) 
+
+************************************************************************************
 
 Assign the third author to the first 4 books
+
+In [17]: Author.objects.get(id=3).books.add(Book.objects.get(id=1))                                                                                  
+
+In [18]: Author.objects.get(id=3).books.add(Book.objects.get(id=2))                                                                                  
+
+In [19]: Author.objects.get(id=3).books.add(Book.objects.get(id=3))                                                                                  
+
+In [20]: Author.objects.get(id=3).books.add(Book.objects.get(id=4))   
+
+************************************************************************************
+
 Assign the fourth author to the first 5 books (or in other words, all the books)
+
+In [21]: Author.objects.get(id=4).books.add(Book.objects.get(id=1))                                                                                  
+
+In [22]: Author.objects.get(id=4).books.add(Book.objects.get(id=2))                                                                                  
+
+In [23]: Author.objects.get(id=4).books.add(Book.objects.get(id=3))                                                                                  
+
+In [24]: Author.objects.get(id=4).books.add(Book.objects.get(id=4))                                                                                  
+
+In [25]: Author.objects.get(id=4).books.add(Book.objects.get(id=5))  
+
+************************************************************************************
+
 For the 3rd book, retrieve all the authors
+
+
+In [27]: authors=Author.objects.filter(books=Book.objects.get(id=3))                                                                                 
+
+In [28]: for author in authors: 
+    ...:     print(author.first_name, author.last_name) 
+    ...:                                                                                                                                             
+Speros TweddleWenk
+John TwiddleWink
+Jadee TwoddleWonk
+
+
+************************************************************************************
+
 For the 3rd book, remove the first author
+
+In [29]: Book.objects.get(id=3).authors.first().delete()                                                                                             
+Out[29]: (4, {'book_author_app.Author_books': 3, 'book_author_app.Author': 1})
+
+In [30]: authors=Author.objects.filter(books=Book.objects.get(id=3))                                                                                 
+
+In [31]: for author in authors: 
+    ...:     print(author.first_name, author.last_name) 
+    ...:                                                                                                                                             
+John TwiddleWink
+Jadee TwoddleWonk
+
+*************************************************************************************
+
 For the 2nd book, add the 5th author as one of the authors
+
+In [32]: Book.objects.get(id=2).authors.add(Author.objects.get(id=5))                                                                                
+
+In [33]: authors=Author.objects.filter(books=Book.objects.get(id=2))                                                                                 
+
+In [34]: for author in authors: 
+    ...:     print(author.first_name, author.last_name) 
+    ...:                                                                                                                                             
+Mike TwaddleWank
+John TwiddleWink
+Jadee TwoddleWonk
+Jay TwuddleWunk
+
+******************************************************************************
+
 Find all the books that the 3rd author is part of
+In [36]: books=Book.objects.filter(authors=Author.objects.get(id=3))                                                                                 
+
+In [37]: for book in books: 
+    ...:     print(book.name) 
+    ...:                                                                                                                                             
+C sharp
+Java
+Python
+PHP
+**********************************************************************************
+
 Find all the books that the 2nd author is part of
