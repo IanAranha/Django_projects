@@ -176,16 +176,21 @@ Jadee TwoddleWonk
 
 For the 3rd book, remove the first author
 
-In [29]: Book.objects.get(id=3).authors.first().delete()                                                                                             
-Out[29]: (4, {'book_author_app.Author_books': 3, 'book_author_app.Author': 1})
+author_object=Book.objects.get(id=8).authors.first()                   
 
-In [30]: authors=Author.objects.filter(books=Book.objects.get(id=3))                                                                                 
+In [90]: author_object.first_name                                               
+Out[90]: 'Speros'
 
-In [31]: for author in authors: 
-    ...:     print(author.first_name, author.last_name) 
-    ...:                                                                                                                                             
-John TwiddleWink
-Jadee TwoddleWonk
+In [91]: Book.objects.get(id=8).authors.remove(author_object)
+
+In [92]: authors=Author.objects.filter(books=Book.objects.get(id=8))            
+
+In [93]: for author in authors: 
+    ...:     print(author.first_name) 
+    ...:                                                                        
+John
+Jadee
+
 
 *************************************************************************************
 
@@ -218,3 +223,10 @@ PHP
 **********************************************************************************
 
 Find all the books that the 2nd author is part of
+In [112]: books=Book.objects.filter(authors=Author.objects.get(id=7))           
+
+In [113]: for book in books: 
+     ...:     print(book.name) 
+     ...:                                                                       
+C sharp
+Java
