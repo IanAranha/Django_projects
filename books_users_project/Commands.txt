@@ -1,0 +1,174 @@
+Create 3 different user accounts
+
+In [2]: from apps.books_users_app.models import *                                         
+
+In [3]: User.objects.create(first_name='Ian', last_name='Aranha', email='ian@ian.com')    
+Out[3]: <User: User object>
+
+In [4]: User.objects.create(first_name='Robert', last_name='Drake', email='rob@rob.com')  
+Out[4]: <User: User object>
+
+In [5]: User.objects.create(first_name='Rebecca', last_name='Farias', email='becky@becky.c
+   ...: om')                                                                              
+Out[5]: <User: User object>
+
+****************************************************************************************
+
+Have the first user create/upload 2 books.
+
+In [4]: book=Book.objects.create(name="Such a Long Journey", desc='Indian stories', upload
+   ...: ed_by=User.objects.get(id=1))                                                     
+
+In [5]: Book.objects.create(name="Such a Long Journey", desc='Indian stories', uploaded_by
+   ...: =User.objects.get(id=1))                                                          
+Out[5]: <Book: Book object>
+
+In [6]: books=Book.objects.filter(uploaded_by=User.objects.get(id=1))                     
+
+In [7]: for book in books: 
+   ...:     print(book.name) 
+   ...:                                                                                   
+Such a Long Journey
+Such a Long Journey
+
+****************************************************************************************                                                                                 
+
+
+Have the second user create/upload 2 other books.
+
+
+In [8]: Book.objects.create(name="Angelas Ashes", desc='Irish sad stories', uploaded_by=Us
+   ...: er.objects.get(id=2))                                                             
+Out[8]: <Book: Book object>
+
+In [9]: Book.objects.create(name="My Family and other Animals", desc='Naturalist stories',
+   ...:  uploaded_by=User.objects.get(id=2))                                              
+Out[9]: <Book: Book object>
+
+In [10]: books=Book.objects.filter(uploaded_by=User.objects.get(id=2))                    
+
+In [11]: for book in books: 
+    ...:     print(book.name) 
+    ...:                                                                                  
+Angelas Ashes
+My Family and other Animals
+
+*****************************************************************************************
+
+Have the third user create/upload 2 other books.
+
+In [12]: Book.objects.create(name="Harry Potter", desc='British Wizard stories', uploaded_
+    ...: by=User.objects.get(id=3))                                                       
+Out[12]: <Book: Book object>
+
+In [13]: Book.objects.create(name="Lord of the Rings", desc='Adventure stories', uploaded_
+    ...: by=User.objects.get(id=3))                                                       
+Out[13]: <Book: Book object>
+
+In [14]: books=Book.objects.filter(uploaded_by=User.objects.get(id=3))                    
+
+In [15]: for book in books: 
+    ...:     print(book.name) 
+    ...:                                                                                  
+Harry Potter
+Lord of the Rings
+
+
+****************************************************************************************
+
+    
+Have the first user like the last book and the first book
+
+In [16]: this_user=User.objects.get(id=1)                                                 
+
+In [18]: this_user.first_name                                                             
+Out[18]: 'Ian'
+
+In [19]: this_book=Book.objects.last()                                                    
+
+In [20]: this_book.name                                                                   
+Out[20]: 'Lord of the Rings'
+
+In [21]: this_book.liked_users.add(this_user)                                             
+
+In [22]: this_book=Book.objects.first()                                                   
+
+In [23]: this_book.name                                                                   
+Out[23]: 'Such a Long Journey'
+
+In [24]: this_book.liked_users.add(this_user)  
+
+***************************************************************************************
+Have the second user like the first book and the third book
+
+In [25]: this_book=Book.objects.get(id=3)                                                 
+
+In [26]: this_user=User.objects.get(id=2)                                                 
+
+In [27]: this_book.liked_users.add(this_user)                                             
+
+In [28]: this_book=Book.objects.first()                                                   
+
+In [29]: this_book.liked_users.add(this_user)  
+
+****************************************************************************************
+
+Have the third user like all books
+
+
+In [33]: this_book=Book.objects.get(id=1)                                                 
+
+In [34]: this_book.liked_users.add(User.objects.get(id=3))                                
+
+In [35]: Book.objects.get(id=2).liked_users.add(User.objects.get(id=3))                   
+
+In [36]: Book.objects.get(id=3).liked_users.add(User.objects.get(id=3))                   
+
+In [37]: Book.objects.get(id=4).liked_users.add(User.objects.get(id=3))                   
+
+In [38]: Book.objects.get(id=5).liked_users.add(User.objects.get(id=3))   
+
+****************************************************************************************
+
+Display all users who like the first book
+
+In [42]: likers = Book.objects.get(id=1).liked_users.all()                                
+
+In [45]: for liker in likers: 
+    ...:     print(liker.first_name, liker.last_name) 
+    ...:      
+    ...:      
+    ...:                                                                                  
+Ian Aranha
+Robert Drake
+Rebecca Farias
+
+
+*********************************************************************************
+
+Display the user who uploaded the first book
+
+In [63]: b=Book.objects.get(id=1).uploaded_by                                                                     
+
+In [64]: print(b.first_name, b.last_name)                                                                         
+Ian Aranha
+
+*********************************************************************************
+Display all users who like the second book
+
+In [67]: likers=Book.objects.get(id=2).liked_users.all()                                                          
+
+In [68]: for liker in likers: 
+    ...:     print(liker.first_name, liker.last_name) 
+    ...:                                                                                                          
+Rebecca Farias
+
+***********************************************************************************
+
+Display the user who uploaded the second book
+
+In [65]: b=Book.objects.get(id=2).uploaded_by                                                                     
+
+In [66]: print(b.first_name, b.last_name)                                                                         
+Ian Aranha
+
