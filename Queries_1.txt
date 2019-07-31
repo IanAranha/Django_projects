@@ -1,0 +1,405 @@
+rom django.shortcuts import render, redirect
+from .models import League, Team, Player
+
+from . import team_maker
+
+def index(request):
+	context = {
+		"leagues": League.objects.all(),
+		"teams": Team.objects.all(),
+		"players": Player.objects.all(),
+	}
+	return render(request, "leagues/index.html", context)
+
+def make_data(request):
+	team_maker.gen_leagues(10)
+	team_maker.gen_teams(50)
+	team_maker.gen_players(200)
+
+	return redirect("index")
+
+*********************************************************************************
+
+Your goal for this assignment is to modify apps/leagues/views.py and/or apps/leagues/templates/leagues/index.html so that instead the page shows:
+
+
+
+..........all baseball leagues
+
+def index(request):
+	context = {
+		"leagues": League.objects.filter(sport="Baseball"),
+	}
+	return render(request, "leagues/index.html", context)
+
+Leagues
+International Collegiate Baseball Conference
+Atlantic Federation of Amateur Baseball Players
+
+
+
+******************************************************************************
+
+
+
+..........all womens' leagues
+
+def index(request):
+	context = {
+		"leagues": League.objects.filter(name__icontains="Women"),
+	}
+	return render(request, "leagues/index.html", context)
+
+Leagues
+International Association of Womens' Basketball Players
+Transamerican Womens' Football Athletics Conference
+
+******************************************************************************
+
+
+
+...all leagues where sport is any type of hockey
+
+def index(request):
+	context = {
+		"leagues": League.objects.filter(sport__icontains="Hockey"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+
+Leagues
+International Conference of Amateur Ice Hockey
+Atlantic Amateur Field Hockey League
+Pacific Ice Hockey Conference
+
+
+*******************************************************************************
+
+..all leagues where sport is something OTHER THAN football
+
+def index(request):
+	context = {
+		"leagues": League.objects.exclude(sport="Football"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+
+Leagues
+International Conference of Amateur Ice Hockey
+International Collegiate Baseball Conference
+Atlantic Federation of Amateur Baseball Players
+Atlantic Federation of Basketball Athletics
+Atlantic Soccer Conference
+International Association of Womens' Basketball Players
+Atlantic Amateur Field Hockey League
+Pacific Ice Hockey Conference
+
+
+************************************************************************************
+
+
+...all leagues that call themselves "conferences"
+
+def index(request):
+	context = {
+		"leagues": League.objects.filter(name__icontains="Conference"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+Leagues
+International Conference of Amateur Ice Hockey
+International Collegiate Baseball Conference
+Atlantic Soccer Conference
+American Conference of Amateur Football
+Transamerican Womens' Football Athletics Conference
+Pacific Ice Hockey Conference
+
+
+
+************************************************************************************
+
+...all leagues in the Atlantic region
+
+def index(request):
+	context = {
+		"leagues": League.objects.filter(name__icontains="Atlantic"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+Leagues
+Atlantic Federation of Amateur Baseball Players
+Atlantic Federation of Basketball Athletics
+Atlantic Soccer Conference
+Atlantic Amateur Field Hockey League
+
+***********************************************************************************
+
+
+...all teams based in Dallas
+
+
+def index(request):
+	context = {
+		"teams": Team.objects.filter(location="Dallas"),
+	}
+	return render(request, "leagues/index.html", context)
+
+Teams
+Dallas Nets
+Dallas Angels
+
+**********************************************************************************
+
+...all teams named the Raptors
+
+def index(request):
+	context = {
+		"teams": Team.objects.filter(team_name__icontains="Raptors"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+
+Teams
+Atlanta Raptors
+Golden State Raptors
+
+
+***********************************************************************************
+
+...all teams whose location includes "City"
+
+def index(request):
+	context = {
+		"teams": Team.objects.filter(location__icontains="City"),
+	}
+	return render(request, "leagues/index.html", context)
+
+Teams
+Mexico City Cave Spiders
+Kansas City Spurs
+
+*********************************************************************************
+
+...all teams whose names begin with "T"
+
+def index(request):
+	context = {
+		"teams": Team.objects.filter(team_name__startswith="T"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+Teams
+Alberta Texans
+Michigan Timberwolves
+Manitoba Tiger-Cats
+Colorado Twins
+
+*********************************************************************************
+
+...all teams, ordered alphabetically by location
+
+def index(request):
+	context = {
+		"teams": Team.objects.all().order_by('location'),
+	}
+	return render(request, "leagues/index.html", context)
+
+Teams
+Alberta Texans
+Arizona Kings
+Atlanta Raptors
+Boston Penguins
+Calgary Blackhawks
+California Padres
+Cleveland Dolphins
+Colorado Capitals
+Colorado Twins
+Connecticut Packers
+DC Generals
+Dallas Nets
+Dallas Angels
+Edmonton Warriors
+Florida Jets
+Golden State Raptors
+Houston Hornets
+Indiana Royals
+Indianapolis Athletics
+Kansas City Spurs
+Manitoba Tiger-Cats
+Maryland Cowboys
+Mexico City Cave Spiders
+Michigan Timberwolves
+Michigan Blue Jays
+Minneapolis Wizards
+Montreal White Sox
+Montreal Wild
+Oakland Sails
+Ohio Black Sox
+Ohio Seahawks
+Ontario Gunslingers
+Ontario Outlaws
+Oregon Colts
+Pennsylvania Reds
+Phoenix Rays
+Pittsburgh Bruins
+Pittsburgh Maple Leafs
+Puerto Rico Breakers
+Raleigh Bulls
+South Carolina Wolverines
+Texas Diamondbacks
+Toronto Kings
+Toronto Pirates
+Vancouver Rangers
+Vancouver Ravens
+Washington Roughriders
+Wichita Vikings
+Wisconsin Rams
+Wisconsin Devils
+
+**************************************************************************************
+...all teams, ordered by team name in reverse alphabetical order
+
+def index(request):
+	context = {
+		"teams": Team.objects.all().order_by('-team_name'),
+	}
+	return render(request, "leagues/index.html", context)
+
+Teams
+South Carolina Wolverines
+Minneapolis Wizards
+Montreal Wild
+Montreal White Sox
+Edmonton Warriors
+Wichita Vikings
+Colorado Twins
+Michigan Timberwolves
+Manitoba Tiger-Cats
+Alberta Texans
+Kansas City Spurs
+Ohio Seahawks
+Oakland Sails
+Indiana Royals
+Washington Roughriders
+Pennsylvania Reds
+Phoenix Rays
+Vancouver Ravens
+Atlanta Raptors
+Golden State Raptors
+Vancouver Rangers
+Wisconsin Rams
+Toronto Pirates
+Boston Penguins
+California Padres
+Connecticut Packers
+Ontario Outlaws
+Dallas Nets
+Pittsburgh Maple Leafs
+Toronto Kings
+Arizona Kings
+Florida Jets
+Houston Hornets
+Ontario Gunslingers
+DC Generals
+Cleveland Dolphins
+Texas Diamondbacks
+Wisconsin Devils
+Maryland Cowboys
+Oregon Colts
+Mexico City Cave Spiders
+Colorado Capitals
+Raleigh Bulls
+Pittsburgh Bruins
+Puerto Rico Breakers
+Michigan Blue Jays
+Calgary Blackhawks
+Ohio Black Sox
+Indianapolis Athletics
+Dallas Angels
+
+********************************************************
+...every player with last name "Cooper"
+
+def index(request):
+	context = {
+		"players": Player.objects.filter(last_name="Cooper"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+Players
+Joshua Cooper
+Landon Cooper
+Michael Cooper
+Alexander Cooper
+
+
+*************************************************
+
+...every player with first name "Joshua"
+
+def index(request):
+	context = {
+		"players": Player.objects.filter(first_name="Joshua"),
+	}
+	return render(request, "leagues/index.html", context)
+
+
+Players
+Joshua Cooper
+Joshua Hayes
+Joshua Henderson
+Joshua Long
+Joshua Coleman
+Joshua White
+Joshua Parker
+Joshua Smith
+
+
+********************************************
+
+....every player with last name "Cooper" EXCEPT those with "Joshua" as the first name
+
+def index(request):
+	context = {
+		"players": Player.objects.filter(last_name="Cooper").exclude(first_name='Joshua')
+	}
+	return render(request, "leagues/index.html", context)
+
+
+Players
+Landon Cooper
+Michael Cooper
+Alexander Cooper
+
+***********************************************
+
+...all players with first name "Alexander" OR first name "Wyatt"
+
+def index(request):
+	context={
+	"players": Player.objects.filter(
+		first_name__icontains="Alexander") | Player.objects.filter(
+		first_name__icontains="Wyatt")
+	}
+	return render(request, "leagues/index.html", context)
+
+
+Players
+Wyatt Bell
+Alexander Bailey
+Wyatt Peterson
+Alexander Wright
+Wyatt Alexander
+Wyatt Bennett
+Alexander Parker
+Alexander Adams
+Alexander Walker
+Alexander Flores
+Alexander Cooper
