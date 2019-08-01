@@ -1,0 +1,331 @@
+...all teams in the Atlantic Soccer Conference
+
+def index(request):
+	context={
+	'leagues': League.objects.get(name="Atlantic Soccer Conference"),
+	'teams': Team.objects.filter(league=League.objects.get(name="Atlantic Soccer Conference"))
+	}
+	return render(request, "leagues/index.html", context)
+
+Leagues
+Atlantic Soccer Conference
+
+Teams
+Minneapolis Wizards
+Pittsburgh Bruins
+Cleveland Dolphins
+Toronto Pirates
+Golden State Raptors
+
+************************************************************************************
+
+...all (current) players on the Boston Penguins
+
+def index(request):
+	context={
+	'players': Player.objects.filter(curr_team=Team.objects.filter(location='Boston', team_name='Penguins')),
+	'teams': Team.objects.filter(location='Boston', team_name='Penguins')
+	}
+	return render(request, "leagues/index.html", context)
+
+Teams
+Boston Penguins
+Players
+Landon Hernandez
+Wyatt Bennett
+David Sanchez
+
+
+************************************************************************************
+
+
+...all (current) players in the International Collegiate Baseball Conference
+
+def index(request):
+	context={
+	'leagues': League.objects.get(name='International Collegiate Baseball Conference'),
+	'players': Player.objects.filter()	}
+	return render(request, "leagues/index.html", context)
+
+
+Leagues
+International Collegiate Baseball Conference
+
+Players
+Michael Flores
+Abigail Foster
+Ryan Phillips
+Elijah Powell
+Isaac Perry
+Charlotte Jones
+Sophia Rivera
+Isabella Griffin
+Landon Cooper
+Elijah James
+Abigail Davis
+Wyatt Alexander
+Abigail Richardson
+Jacob Jenkins
+Landon Gray
+Levi Miller
+Joshua Long
+Nathan Mitchell
+James Ramirez
+Samuel Evans
+John Edwards
+Henry Martin
+Andrew Adams
+Joshua White
+Alexander Flores
+Abigail Hernandez
+Caleb Parker
+Joshua Smith
+Jack Phillips
+
+
+*************************************************************************************************************
+
+...all (current) players in the American Conference of Amateur Football with last name "Lopez"
+
+
+"players": Player.objects.filter(last_name__icontains='lopez').filter(curr_team__league__name__contains='American Conference of Amateur Football')
+
+Leagues
+American Conference of Amateur Football
+
+Players
+Levi Lopez
+Isabella Lopez
+
+**********************************************************************************
+
+...all football players
+
+
+'players': Player.objects.filter(curr_team__league__sport__icontains='football')
+
+
+Leagues
+American Conference of Amateur Football
+Transamerican Womens' Football Athletics Conference
+
+
+Players
+Nathan Bryant
+Wyatt Bell
+Lucas Martin
+Luke Lopez
+Dylan Rodriguez
+Luke Bell
+James Ross
+Benjamin King
+Caleb Martinez
+Jack Young
+Anthony Martinez
+Jaxon Gonzales
+Emily Sanchez
+Jaxon Torres
+Liam Watson
+James Smith
+Dylan Garcia
+Joshua Cooper
+Aiden Rivera
+Benjamin Alexander
+Ava Henderson
+Joshua Hayes
+Landon Mitchell
+Charles Collins
+Nathan Brooks
+Isabella Bennett
+Lucas Perry
+Charles Campbell
+Alexander Parker
+Benjamin Perry
+Levi Lopez
+Charlotte Ross
+Oliver Kelly
+Daniel Martinez
+Ryan Peterson
+Isabella Lopez
+Charlotte Harris
+Caleb Collins
+Ryan Gonzales
+Joseph Roberts
+David Watson
+Abigail Long
+Landon James
+Daniel Davis
+Charlotte Brown
+Logan King
+Luke Clark
+Isabella Lewis
+Jacob Gray
+Liam Robinson
+Aiden Hernandez
+Christian Wood
+Joshua Parker
+Ethan Sanchez
+Noah Brooks
+Charles Campbell
+Mason Henderson
+Nathan Flores
+Jackson Perry
+Noah Taylor
+Levi Howard
+Jayden Perez
+Elijah Richardson
+Emily Jackson
+Olivia Young
+Abigail Torres
+Christopher Sanders
+
+
+*********************************************************************************
+
+...all teams with a (current) player named "Sophia"
+
+
+'teams': Team.objects.filter(curr_players__first_name__icontains='Sophia'),
+	
+
+Teams
+Mexico City Cave Spiders
+Houston Hornets
+Wisconsin Devils
+
+
+********************************************************************************
+
+...all leagues with a (current) player named "Sophia"
+
+'leagues': League.objects.filter(teams__curr_players__first_name__icontains='Sophia'),
+
+Leagues
+International Collegiate Baseball Conference
+Atlantic Federation of Basketball Athletics
+Atlantic Amateur Field Hockey League
+
+
+
+************************************************************************************
+
+
+...everyone with the last name "Flores" who DOESN'T (currently) play for the Washington Roughriders
+
+
+"players":  Player.objects.filter(last_name='Flores').exclude(curr_team__team_name='Roughriders')
+
+
+Players
+Michael Flores
+Alexander Flores
+Nathan Flores
+
+*************************************************************************************
+
+...all teams, past and present, that Samuel Evans has played with
+
+'teams': Team.objects.filter(all_players__first_name='Samuel', all_players__last_name='Evans'),
+
+Teams
+Dallas Nets
+Montreal White Sox
+Ohio Black Sox
+Indianapolis Athletics
+Ontario Outlaws
+Mexico City Cave Spiders
+
+******************************************************************************************
+
+...all players, past and present, with the Manitoba Tiger-Cats
+
+"players": Player.objects.filter(all_teams__location='Manitoba', all_teams__team_name='Tiger-Cats')
+
+Players
+Jaxon Howard
+Sophia Bailey
+Alexander Bailey
+Levi Rodriguez
+William Martin
+Olivia Diaz
+Jacob Green
+Christian Perez
+Harper James
+Daniel Kelly
+
+*******************************************************************************************
+...all players who were formerly (but aren't currently) with the Wichita Vikings
+
+"players": Player.objects.filter(all_teams__location='Wichita', all_teams__team_name='Vikings').exclude(curr_team__location='Wichita', curr_team__team_name='Vikings')
+
+
+Players
+Dylan Rodriguez
+Aiden Rivera
+Ava Henderson
+Nathan Brooks
+Daniel Martinez
+Ryan Peterson
+Charlotte Harris
+Noah Brooks
+Levi Howard
+Christopher Sanders
+
+*****************************************************************************************************
+...every team that Jacob Gray played for before he joined the Oregon Colts
+
+'teams': Team.objects.filter(all_players__first_name='Jacob',all_players__last_name='Gray').exclude(curr_players__first_name='Jacob')
+
+Teams
+Ontario Gunslingers
+Puerto Rico Breakers
+Toronto Kings
+
+******************************************************************************************************
+
+
+...everyone named "Joshua" who has ever played in the Atlantic Federation of Amateur Baseball Players
+
+"players": Player.objects.filter(first_name='Joshua').filter(all_teams__league__name='Atlantic Federation of Amateur Baseball Players')
+
+Players
+Joshua Long
+Joshua White
+Joshua Smith
+
+*******************************************************************************************************
+...all teams that have had 12 or more players, past and present. (HINT: Look up the Django annotate function.)
+
+
+'teams': Team.objects.annotate(num_players=Count('all_players')).filter(num_players__gte=12),
+
+Teams
+Dallas Nets
+South Carolina Wolverines
+Mexico City Cave Spiders
+Montreal White Sox
+Ontario Outlaws
+California Padres
+Alberta Texans
+Oregon Colts
+Montreal Wild
+Dallas Angels
+Washington Roughriders
+Edmonton Warriors
+Michigan Timberwolves
+Phoenix Rays
+Raleigh Bulls
+Wisconsin Devils
+Indiana Royals
+Maryland Cowboys
+Kansas City Spurs
+Puerto Rico Breakers
+Toronto Kings
+Wisconsin Rams
+Ontario Gunslingers
+Texas Diamondbacks
+
+
+*****************************************************************************************************************
+
+...all players and count of teams played for, sorted by the number of teams they've played for
