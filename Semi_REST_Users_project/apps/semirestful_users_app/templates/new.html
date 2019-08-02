@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+  <div class=container>
+      <h2>Add new user</h2>
+      <form action='/users/create' method='POST'>
+          {% csrf_token%}
+          <label for=first_name>First Name</label>
+          <input type=text name=first_name placeholder="Enter first name"><br>
+          <label for=last_name>Last Name</label>
+          <input type=text name=last_name placeholder="Enter last name"><br>
+          <label for=email>Email</label>
+          <input type=email name=email placeholder="Enter email"><br>
+          <input type="submit" value="SUBMIT">
+      </form>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+      <a href='/users'>Go Back</a>
+  </div>
+    
+
+</body>
+</html>
