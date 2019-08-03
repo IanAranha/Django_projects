@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Courses</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div class=container>
+        <div id=main_box>
+            <h3>Add a course</h3>
+            <form action='/add_course' method='post'>
+                {%csrf_token%}
+                <div>
+                    <label for=name>Name: </label>
+                    <input type="text" name=name>
+                </div>  
+                <div>
+                    <label for=desc>Description: </label>
+                    <textarea rows='3' cols='32' name=desc></textarea>
+                </div>      
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div id=button>
+                    <button type="submit" id=add > ADD  </button>
+                </div> 
+            </form>
+        </div>
+
+        <div id='lower_box'>
+            <h3>Courses:</h3>
+            <table id='result'>
+                <thead>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </thead>
+                {%for course in courses%}
+                <tbody>
+                  <tr>
+                    <td>{{course.name}}</a></td>
+                    <td>{{course.desc}}</td>
+                    <td>{{course.created_at}}</td>
+                    <td><a href='/courses/destroy/{{course.id}}'>REMOVE</a></td>
+                  </tr>
+                </tbody>
+                {%endfor%}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
