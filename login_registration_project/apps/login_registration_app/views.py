@@ -4,7 +4,7 @@ from django.contrib import messages
 
 # Create your views here.
 def index(request):
-    return render(request, 'login_registration_app/index.html')
+    return render(request, 'login_registration_app/test.html')
 
 def register(request):
     if request.method == 'POST':
@@ -27,6 +27,6 @@ def login(request):
         request.session['email'] = result['user'].email
         request.session['first_name'] = result['user'].first_name
         return redirect('/dashboard')
-        
+
 def dashboard(request):
     return render(request, 'login_registration_app/success.html')
