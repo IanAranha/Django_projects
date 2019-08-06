@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2>Registration Form</h2>
+        <form action='/register' method='POST'>
+            {%csrf_token%}
+            <lable for='first_name'>First Name: <input
+            type='text' name='first_name' placeholder='Enter first name'>
+            </lable><br>
+            <lable for='last_name'>Last Name: <input
+            type='text' name='last_name' placeholder='Enter last name'>
+            </lable><br>
+            <lable for='email'>Email: <input
+            type='text' name='email' placeholder='Enter Email'>
+            </lable><br>
+            <lable for='password'>Password: <input
+            type='password' name='password' placeholder='Enter Password'>
+            </lable><br>
+            <lable for='c_password'>Confirm password: <input
+            type='password' name='c_password' placeholder='Confirm password'>
+            </lable><br>
+            <button type="submit">REGISTER</button>
+        </form>
+    </div>
+    <div>
+        <h2>Log-in Form</h2>
+        <form action='/login' method='POST'>
+            {%csrf_token%}
+            <lable for='email'>Email: <input
+            type='text' name='email' placeholder='Enter Email'>
+            </lable><br>
+            <lable for='password'>Password: <input
+            type='password' name='password' placeholder='Enter Password'>
+            </lable><br>
+            <button type="submit">LOG IN</button>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
