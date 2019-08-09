@@ -16,7 +16,7 @@ def register(request):
             return redirect('/')
         else:
             User.objects.userCreator(request.POST)
-            messages.success(request, 'User has been registered. Please Log-in')  
+            messages.success(request, "User has been registered. Please log in")  
             return redirect('/')
     else:
         return redirect('/')
@@ -67,3 +67,12 @@ def postComment(request):
             user=User.objects.get(id=request.session['id']),
             message=Message.objects.get(id=request.POST['message_id']) )
         return redirect('/dashboard')
+
+def delete(request, id):
+    Message.objects.deleteMessage(id)
+    return redirect('/dashboard')
+
+
+def logout(request):
+    request.session.flush()
+    return redirect('/')

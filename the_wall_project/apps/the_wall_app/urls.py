@@ -30,5 +30,7 @@ urlpatterns = [
     url(r'^login$', views.login),
     url(r'^dashboard$', views.dashboard),
     url(r'^postMessage$', views.postMessage),
-    url(r'^postComment$', views.postComment)
+    url(r'^postComment$', views.postComment),
+    url(r'^logout$', views.logout),
+    url(r'^delete/(?P<id>\d+)$', views.delete)
 ]

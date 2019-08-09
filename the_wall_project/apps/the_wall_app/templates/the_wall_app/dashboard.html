@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
 </head>
 <body>
@@ -29,13 +30,17 @@
         </li>
     {% endfor %}
     </ul>
+    <br>
+    <a href='/logout'>LOG OUT</a>
     <h3>Messages:</h3>
     {% if posted_messages %}
       {% for post in posted_messages %}
       <fieldset>
             <h3>{{ post.user.first_name }} -- {{ post.created_at }}</h3>
             <p>{{ post.message }}</p>
-           
+            {% if post.user.id == request.session.id%}
+            <i class="fa fa-trash"> <a href="/delete/{{post.id}}">DELETE</a></i>
+            {% endif %}
             <h4>Comments:</h4>
             {% if posted_comments %}
                 {% for comment in posted_comments %}

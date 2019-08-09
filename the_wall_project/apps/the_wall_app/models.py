@@ -94,6 +94,10 @@ class User(models.Model):
     objects=UserManager()
 
 class MessageManager(models.Manager):
+    def deleteMessage(self, id):
+        message=Message.objects.get(id=id)
+        message.delete()
+        return message
 
     def messageCreator(self, postData):
         message=self.create(
